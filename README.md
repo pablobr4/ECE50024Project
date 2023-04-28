@@ -14,7 +14,7 @@ In order to run the files, it is important to first set up the images directorie
 
 1) Download the images.zip file and extract it in the folder in which the code is going to run. This way, the train.py file (and all other .py files) and the "images" folder should be in the same directory. Inside the images folder, there should be two folders, "train" and "test", each of which has many classes with several images per class.
 
-2) Create your own extended MNIST dataset with the create_data.py script. For this to work, just create a folder named "images" in the same directory as create_data.py, and inside the "images" folder create another two folders: "train" and "test". Then, run the create_data.py script, and it will populate these folders.
+2) Create your own extended MNIST dataset with the create_data.py script (internet connection required). For this to work, just create a folder named "images" in the same directory as create_data.py, and inside the "images" folder create another two folders: "train" and "test". Then, run the create_data.py script, and it will populate these folders.
 
 After all dependencies are installed and the images directory is correctly created, download all .py files into the same directory as the "images" folder.
 To train the metalearner, just open the train.py file, scroll down to the "USER DEFINED PARAMETERS" comment and fill them with the desired parameters. By default, the parameters are set to 10 classes per episode, 5-shot classification with 15 images for metatesting, to be trained for 1500 episodes and 5 metaepochs per episode.
