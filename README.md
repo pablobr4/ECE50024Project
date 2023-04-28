@@ -24,3 +24,7 @@ When running the train.py file, the running loss is printed every 10 episodes. A
 To compute the accuracy of the learner when trained with the metalearner LSTM, open the test.py file, scroll down to the "USER DEFINED PARAMETERS" and fill them. The "num_classes_episode" parameter should be the same as the one used for training the metalearner. Make sure that the path to the metalearner model to be loaded is correct. After running this script, the accuracy is printed as a percentage of the total images correctly classified. This percentage is also saved in the file "accuracy.pth".
 
 In order to compare the accuracy to the baseline implementation, you can run the "train_baseline.py" file. Again, scroll down to the "USER DEFINED PARAMETERS" and fill them. After running this script, the accuracy of the baseline learner is printed and saved in the "baseline_acc.pth" file.
+
+In the "saved_models" folder of this repo you can find the already trained models for 1-shot up to 10-shot classification.
+
+In the "results" folder you can find the results presented in the paper for the accuracies and training losses.
