@@ -20,7 +20,7 @@ test_numbers = random.choices(numbers, k=30)
 
 for i in train_numbers:
   try:
-    os.mkdir("./outputs/train/"+str(i)+"/")
+    os.mkdir("./images/train/"+str(i)+"/")
   except:
     continue
 
@@ -39,7 +39,7 @@ for i in train_numbers:
       
       img, _ = mnist_dataset[num_idx]
 
-      img.save("./outputs/train/"+str(i)+"/"+str(last_num_idx[i])+".png")
+      img.save("./images/train/"+str(i)+"/"+str(last_num_idx[i])+".png")
 
       last_num_idx[i] += 1
     
@@ -62,13 +62,13 @@ for i in train_numbers:
 
       combined_img = combine_imgs(img1, img2)
 
-      combined_img.save("./outputs/train/"+str(i)+"/"+str(j)+".png")
+      combined_img.save("./images/train/"+str(i)+"/"+str(j)+".png")
 
 mnist_dataset = datasets.MNIST(root='./data', train=False, download=True)
 
 for i in test_numbers:
   try:
-    os.mkdir("./outputs/test/"+str(i)+"/")
+    os.mkdir("./images/test/"+str(i)+"/")
   except:
     continue
 
@@ -87,7 +87,7 @@ for i in test_numbers:
       
       img, _ = mnist_dataset[num_idx]
 
-      img.save("./outputs/test/"+str(i)+"/"+str(last_num_idx[i])+".png")
+      img.save("./images/test/"+str(i)+"/"+str(last_num_idx[i])+".png")
 
       last_num_idx[i] += 1
     
@@ -110,4 +110,4 @@ for i in test_numbers:
 
       combined_img = combine_imgs(img1, img2)
 
-      combined_img.save("./outputs/test/"+str(i)+"/"+str(j)+".png")
+      combined_img.save("./images/test/"+str(i)+"/"+str(j)+".png")

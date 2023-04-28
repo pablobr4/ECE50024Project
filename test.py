@@ -2,16 +2,12 @@ import torch
 import random
 import numpy as np
 import os
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
 import torchvision.transforms as tvt
-import pandas as pd
-import matplotlib.pyplot as plt
-import copy
 from learner import LearnerCNN
 import dataset
 from metalearner import MetaLearnerNet
 import torch.nn as nn
-from IPython.display import Image as Image_
 
 def process_loss_and_grad(x, p=10):
 
@@ -114,9 +110,9 @@ if __name__ == "__main__":
     #USER DEFINED PARAMETERS
     #-------------- USER PARAMS --------------------
     num_classes_episode = 10    #number of classes per episode
-    k_shot = 4                  #number of images of each class for metatraining
+    k_shot = 5                  #number of images of each class for metatraining
     eval_img_num = 15           #number of images of each class for metatesting
-    root_path = "./outputs/"    #path where the "train" and "test" folders are
+    root_path = "./images/"     #path where the "train" and "test" folders are
     num_workers = 2             #number of CPU workers for dataloading
     num_episodes_test = 300     #number of testing episodes
 
@@ -126,8 +122,9 @@ if __name__ == "__main__":
     learning_rate = 1e-3        #Learning rate for Adam optimizer
     metaepochs = 5              #Number of metaepochs each episode
 
-    metalearner_model_path = "./saved_models/metalearner_5_shot.pth"
+    metalearner_model_path = "./metalearner.pth"
     #-----------------------------------------------
+    batch_size = k_shot*num_classes_episode
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     location = "cuda" if torch.cuda.is_available() else "cpu"
@@ -187,5 +184,6 @@ if __name__ == "__main__":
           
           num_imgs += 1
 
-    print(num_correct/num_imgs*100)
+    print("Accuracy: " + str(num_correct/num_imgs*100) + "%")
+    torch.save(num_correct/num_imgs*100, "accuracy.pth")
               

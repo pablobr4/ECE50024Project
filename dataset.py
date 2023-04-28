@@ -3,7 +3,6 @@ import random
 import torch
 from PIL import Image
 from torch.utils.data import Dataset, DataLoader, Sampler
-import torchvision.transforms as transforms
 import glob
 import torchvision.transforms as tvt
 

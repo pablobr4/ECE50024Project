@@ -112,9 +112,9 @@ if __name__ == "__main__":
     #USER DEFINED PARAMETERS
     #-------------- USER PARAMS --------------------
     num_classes_episode = 10    #number of classes per episode
-    k_shot = 4                  #number of images of each class for metatraining
+    k_shot = 5                  #number of images of each class for metatraining
     eval_img_num = 15           #number of images of each class for metatesting
-    root_path = "./outputs/"    #path where the "train" and "test" folders are
+    root_path = "./images/"     #path where the "train" and "test" folders are
     num_workers = 2             #number of CPU workers for dataloading
     num_episodes_train = 1500   #number of training episodes
 
@@ -233,5 +233,5 @@ if __name__ == "__main__":
     plt.title("Training Loss")
     plt.xlabel("iter")
     plt.ylabel("Loss")
-    plt.savefig("loss_nogradclip_" + str(k_shot) + "_shot.png")
-    torch.save(loss_arr, "loss_arr_"+str(k_shot) + "_shot.pth")
+    plt.savefig("loss.png")
+    torch.save(loss_arr, "loss_arr.pth")

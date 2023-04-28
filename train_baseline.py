@@ -2,14 +2,10 @@ import torch
 import random
 import numpy as np
 import os
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
 import torchvision.transforms as tvt
-import pandas as pd
-import matplotlib.pyplot as plt
-import copy
 from learner import LearnerCNN
 import dataset
-from metalearner import MetaLearnerNet
 import torch.nn as nn
 
 if __name__ == "__main__":
@@ -30,14 +26,17 @@ if __name__ == "__main__":
     #Initialize Learner
     #-------------- USER PARAMS --------------------
     num_classes_episode = 10
-    k_shot = 10
+    k_shot = 5
     eval_img_num = 15
-    root_path = "./outputs/"
+    root_path = "./images/"
     num_workers = 8
     
     batch_size = k_shot*num_classes_episode
     num_episodes_train = 100
     num_episodes_test = 100
+
+    learning_rate = 1e-3
+    metaepochs = 5
     #-----------------------------------------------
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -47,12 +46,9 @@ if __name__ == "__main__":
     #Initialize dataloader
     transforms = tvt.Compose([tvt.ToTensor()])
 
-    train_dataloader, test_dataloader = dataset.get_dataloaders(root_path, num_episodes_train, 10, k_shot=k_shot, eval_img_num=eval_img_num, num_classes_episode=num_classes_episode,  transforms=transforms, num_workers=num_workers)
-    
-    #-------------- USER PARAMS --------------------
-    learning_rate = 1e-3
-    metaepochs = 5
-    #-----------------------------------------------
+    test_set = dataset.EpisodeSet(root_path, train=False, k_shot=k_shot, eval_img_num=eval_img_num, transforms=transforms)
+    test_sampler = dataset.EpisodeSampler(len(test_set), num_classes_episode=num_classes_episode, num_episodes=num_episodes_test)
+    test_dataloader = DataLoader(test_set, num_workers=num_workers, batch_sampler=test_sampler)
 
     print("Starting training...\n")
 
@@ -105,6 +101,6 @@ if __name__ == "__main__":
             num_imgs += 1
 
     baseline_acc = num_correct/num_imgs*100
-    torch.save(baseline_acc, "baseline_acc_" + str(k_shot) + "_shot.pth")
+    torch.save(baseline_acc, "baseline_acc.pth")
     print("Baseline accuracy: " + str(baseline_acc) + "%")
     
